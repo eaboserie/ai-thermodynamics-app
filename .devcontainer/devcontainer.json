@@ -1,0 +1,30 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "README.md",
+                "steam_table.py"
+            ]
+        },
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "GitHub.copilot-chat"
+            ]
+        }
+    },
+    "forwardPorts": [8501],
+    "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+    "postAttachCommand": {
+        "server": "streamlit run steam_table.py --server.enableCORS false --server.enableXsrfProtection false"
+    },
+    "portsAttributes": {
+        "8501": {
+            "label": "Streamlit App",
+            "onAutoForward": "openPreview"
+        }
+    },
+    "remoteUser": "vscode"
+}
