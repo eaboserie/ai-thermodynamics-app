@@ -212,6 +212,15 @@ if inputs_valid:
     input1_CoolProp_name = prop1_name
     input2_CoolProp_name = prop2_name
 
+    if prop1_name == "v":
+        input1_CoolProp_name = "D"
+    if prop2_name == "v":
+        input2_CoolProp_name = "D"
+    if prop1_name == "x":
+        input1_CoolProp_name = "Q"
+    if prop2_name == "x":
+        input2_CoolProp_name = "Q"
+        
     try:
         def get_si_value(prop):
             if prop == "T":
