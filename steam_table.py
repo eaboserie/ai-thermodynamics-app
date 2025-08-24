@@ -12,6 +12,28 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from CoolProp.CoolProp import PropsSI, PhaseSI
 
+# --- Simple password protection ---
+PASSWORD = "yourpassword"  # Change this to your desired password
+
+def check_password():
+    def password_entered():
+        if st.session_state["password"] == "Essam":
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Remove password from session state
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        st.text_input("Enter password", type="password", on_change=password_entered, key="password")
+        st.stop()
+    elif not st.session_state["password_correct"]:
+        st.text_input("Enter password", type="password", on_change=password_entered, key="password")
+        st.error("😕 Password incorrect")
+        st.stop()
+
+check_password()
+
+
 # ---------- Unit helpers ----------
 def to_SI_T(t_val, t_unit):
     return t_val + 273.15 if t_unit == "°C" else t_val
@@ -220,7 +242,7 @@ if inputs_valid:
         input1_CoolProp_name = "Q"
     if prop2_name == "x":
         input2_CoolProp_name = "Q"
-        
+
     try:
         def get_si_value(prop):
             if prop == "T":
